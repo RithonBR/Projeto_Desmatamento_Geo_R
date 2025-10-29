@@ -1,0 +1,300 @@
+---
+title: "🧱 Estruturas de Dados no R"
+output: html_notebook
+---
+
+No R, as **estruturas de dados são os formatos que organizam e armazenam informações**.Cada estrutura tem suas próprias características, dimensões e formas de acesso aos elementos.
+
+Elas são a base para qualquer tipo de análise, modelagem estatística ou visualização de dados.
+
+
+----------------------------------------------------------------------------------------
+
+**1️⃣ Vetores (vector)**
+
+São a estrutura **mais simples** do R — armazenam elementos de um mesmo tipo (todos numéricos, ou todos textos, etc.).
+
+🔶 **Criando vetores**
+```{r}
+# Vetor numérico
+v_num <- c(10, 20, 30)
+
+# Vetor de texto
+v_char <- c("R", "Python", "SQL")
+
+# Vetor lógico
+v_log <- c(TRUE, FALSE, TRUE)
+```
+
+🔶 **Acessando elementos**
+```{r}
+v_num[1]     # primeiro elemento → 10
+v_char[2:3]  # segundo e terceiro → "Python" "SQL"
+```
+💡 Vetores são unidimensionais e seguem a regra de coerção — todos os elementos têm o mesmo tipo.
+
+
+----------------------------------------------------------------------------------------
+
+**2️⃣ Matrizes (matrix)**
+
+As matrizes armazenam dados **bidimensionais (linhas e colunas)**, mas todos os elementos devem ser do mesmo tipo.
+
+🔶 **Criando matrizes**
+```{r}
+m <- matrix(1:6, nrow = 2, ncol = 3)
+print(m)
+```
+🔶 **Acessando elementos**
+```{r}
+m[1, 2]     # elemento da 1ª linha e 2ª coluna → 3
+m[ ,3]      # toda a 3ª coluna
+m[2, ]      # toda a 2ª linha
+```
+💡 Matrizes são ideais para operações matemáticas e multiplicação de matrizes **(%*%)**.
+
+----------------------------------------------------------------------------------------
+
+**3️⃣ Arrays (array)**
+
+Um array é uma extensão da matriz — pode ter duas ou mais dimensões.
+
+
+🔶 **Criando um array**
+
+```{r}
+a <- array(1:12, dim = c(3, 2, 2))
+print(a)
+```
+
+Isso cria um array **3D com 3 linhas, 2 colunas e 2 “camadas”.**
+
+💡 Arrays são muito usados em análises espaciais, imagens e dados multitemporais, onde há mais de duas dimensões.
+
+----------------------------------------------------------------------------------------
+
+**4️⃣ Listas (list)**
+
+As **listas** são as estruturas mais flexíveis do R — podem armazenar **elementos de tipos e tamanhos diferentes.**
+
+
+🔶 **Criando listas**
+```{r}
+dados <- list(
+  nome = "Ana",
+  idade = 25,
+  notas = c(8.5, 9.0, 7.5),
+  aprovado = TRUE
+)
+```
+🔶 **Acessando elementos**
+```{r}
+dados$nome      # "Ana"
+dados[["notas"]]# c(8.5, 9.0, 7.5)
+dados[[2]]      # 25
+```
+
+----------------------------------------------------------------------------------------
+
+**5️⃣ Data Frames (data.frame)**
+
+Os data frames são as estruturas mais comuns para análise de **dados tabulares** no R.
+
+Eles **são parecidos com planilhas do Excel** — possuem linhas (observações) e colunas (variáveis).
+
+🔶 **Criando um data frame**
+```{r}
+dados <- data.frame(
+  nome = c("Ana", "Bruno", "Carla"),
+  idade = c(23, 30, 27),
+  nota = c(8.5, 7.0, 9.0)
+)
+print(dados)
+```
+
+🔶 **Acessando elementos**
+```{r}
+dados$nome       # coluna "nome"
+dados[1, ]       # primeira linha
+dados[ , "nota"] # coluna "nota"
+```
+💡 É a estrutura principal usada em análises estatísticas, machine learning e manipulação de dados com o pacote dplyr.
+
+----------------------------------------------------------------------------------------
+
+**6️⃣ Fatores (factor)**
+
+Os fatores representam **variáveis categóricas**, ou seja, dados que possuem **níveis (categorias)** definidos.
+São muito usados para variáveis como **“sexo”, “cor”, “classe”, “região” etc.**
+
+🔶 **Criando fatores**
+```{r}
+sexo <- factor(c("Feminino", "Masculino", "Feminino"))
+print(sexo)
+
+# [1] Feminino Masculino Feminino
+# Levels: Feminino Masculino
+```
+🔶 **Verificando níveis**
+```{r}
+levels(sexo)
+# [1] "Feminino" "Masculino"
+```
+💡 Fatores são importantes porque o R **trata suas categorias de forma otimizada** e as usa automaticamente em modelos estatísticos e gráficos.
+
+----------------------------------------------------------------------------------------
+
+**🧭 Indexação e Manipulação de Estruturas de Dados no R**
+
+A **indexação** é o processo de **acessar elementos específicos** dentro das estruturas de dados — seja um valor em um vetor, uma linha em um data frame, ou uma célula em uma matriz.
+
+O R usa colchetes (**[ ]**), duplos colchetes (**[[ ]]**) e o operador **$** para navegar e extrair dados.
+
+**🔹 1️⃣ Vetores**
+
+**🔶 Acessando elementos**
+```{r}
+v <- c(10, 20, 30, 40, 50)
+
+v[1]      # primeiro elemento → 10
+v[3:5]    # do 3º ao 5º elemento → 30, 40, 50
+v[c(2,4)] # posições 2 e 4 → 20, 40
+x <- v[v>30]
+print(x)
+```
+**🔶 Excluindo elementos**
+```{r}
+v[-1]     # remove o primeiro elemento → 20 30 40 50
+v[-c(2,3)]# remove as posições 2 e 3 → 10 40 50
+```
+💡 A indexação em **R começa em 1**, diferente de linguagens como **Python ou C (que começam em 0)**.
+
+----------------------------------------------------------------------------------------
+
+
+**🔹 2️⃣ Matrizes**
+
+**🔶 Criando e acessando**
+```{r}
+m <- matrix(1:9, nrow = 3, ncol = 3)
+print(m)
+
+m <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+print(m)
+```
+**🔶 Acessando elementos**
+```{r}
+m[1, 2]   # elemento da 1ª linha e 2ª coluna → 4
+m[ , 3]   # toda a 3ª coluna
+m[2, ]    # toda a 2ª linha
+```
+💡 É possível nomear linhas e colunas:
+```{r}
+rownames(m) <- c("A", "B", "C")
+colnames(m) <- c("X", "Y", "Z")
+
+m["A", "Z"]  # acessa o valor da linha A e coluna Z
+```
+**🔹 Combinar vetores tambem dão matrizes **
+```{r}
+pontos <- c(1:5)
+lat <- c(23.23,25.34,23.5,23.565,24.254)
+long <- c(22.23,21.34,22.5,25.565,23.254)
+alturas <- c(200,300,400,500,600)
+
+matrizlinha <- rbind(pontos,lat,long,alturas) # combinar os vetores e colocar nas linhas
+matrizcoluna <- cbind(pontos,lat,long,alturas) # combinar os vetores e colocar nas colunas
+print(matrizlinha)
+print(matrizcoluna)
+```
+
+
+----------------------------------------------------------------------------------------
+
+**🔹 3️⃣ Arrays**
+
+**🔶 Acessando valores em múltiplas dimensões**
+```{r}
+a <- array(1:12, dim = c(3, 2, 2))
+a[1, 2, 1]   # primeira linha, segunda coluna, primeira camada → 2
+a[ , , 2]    # mostra toda a segunda camada (matriz 3x2)
+```
+💡 Arrays são úteis quando trabalhamos com imagens, séries temporais ou dados espaciais 3D.
+
+----------------------------------------------------------------------------------------
+
+**🔹 4️⃣ Listas**
+
+As listas **exigem atenção** especial porque seus elementos podem ter tipos e tamanhos diferentes.
+
+🔶 **Criando uma lista**
+```{r}
+info <- list(
+  nome = "Luciano",
+  idades = c(25, 30, 35),
+  aprovado = TRUE
+)
+
+listMatrizes <- list(matriz1=matrizlinha,matriz2=matrizcoluna)
+```
+🔶 **Acessando elementos**
+```{r}
+info[1]        # retorna uma *sublista* (mantém a estrutura)
+info[[1]]      # retorna o valor diretamente → "Luciano"
+info$nome      # acesso direto por nome → "Luciano"
+info$idades[2] # segundo valor do vetor dentro da lista → 30
+print(listMatrizes) # Agora temos 2 matrizes dentro de uma lista
+listMatrizes$matriz1 # e podemos acessar livremente cada uma ou cada celula dela
+```
+💡 Use **[[ ]]** quando quiser o **conteúdo real**, e **[ ]** quando quiser uma **sublista**.
+
+----------------------------------------------------------------------------------------
+
+**🔹 5️⃣ Data Frames**
+
+Os data frames são extremamente versáteis — permitem indexar por número de linha e coluna, nome da variável ou condições lógicas.
+
+🔶 **Criando um data frame**
+```{r}
+dados <- data.frame(
+  nome = c("Ana", "Bruno", "Carla"), #Sim, voce poderia colocar variaveis vetores aqui
+  idade = c(23, 30, 27),
+  nota = c(8.5, 7.0, 9.0)
+)
+```
+🔶 **Acessando dados**
+```{r}
+dados[1, 2]        # linha 1, coluna 2 → 23
+dados[ , "nota"]   # coluna "nota"
+dados$nome         # coluna "nome"
+```
+🔶 **Filtrando linhas por condição**
+```{r}
+dados[dados$idade > 25, ]     # apenas pessoas com idade > 25
+dados[dados$nota >= 8, "nome"]# nomes com nota ≥ 8
+```
+💡 A indexação lógica é uma das ferramentas mais poderosas do R para filtrar e explorar dados.
+
+🔹 **Converter uma matriz em um data frame**
+```{r}
+dataframe_de_matriz <- as.data.frame(matrizcoluna)
+print(dataframe_de_matriz)
+# uma outa forma de filtrar dataframes
+df_400 <- subset(x = dataframe_de_matriz, subset = dataframe_de_matriz$alturas >= 400) 
+print(df_400)
+```
+
+----------------------------------------------------------------------------------------
+
+**🔹 6️⃣ Fatores**
+
+Os fatores podem ser acessados como vetores comuns:
+```{r}
+sexo <- factor(c("Feminino", "Masculino", "Feminino"))
+sexo[1]       # "Feminino"
+levels(sexo)  # mostra os níveis existentes
+```
+💡 É possível reordenar níveis manualmente:
+```{r}
+sexo <- factor(sexo, levels = c("Masculino", "Feminino"))
+```

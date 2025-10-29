@@ -1,0 +1,148 @@
+---
+title: "📘 Tipos de Dados em R"
+output: html_notebook
+---
+
+Em R, **tudo é um objeto**, e cada objeto possui um **tipo de dado** (ou data type) que **define como ele é armazenado** na memória e **quais operações podem ser realizadas com ele.**
+
+Saber identificar e manipular tipos de dados é fundamental para evitar erros e escrever códigos mais eficientes.
+
+🔹 **Numericos**
+
+Usados para representar valores numéricos, podendo ser inteiros, decimais (double) ou complexos.
+
+🔶 **Inteiro**
+
+Representa **números sem casas decimais.**
+
+Para criar um número inteiro em R, adiciona-se a letra **“L”** após o número Ou indicar com **Integer(Numero)**.
+
+🔶 **Double**
+
+Representa **números reais (com casas decimais).**
+
+É o tipo numérico padrão no R.
+
+🔶 **Complexo**
+
+Usado para representar números complexos, com **parte real e imaginária.**
+
+
+🔹 **Textos**
+
+Usados para representar **cadeias de caracteres, como palavras, frases ou símbolos.**
+
+⚠️ **Atenção:** em outras linguagens de programação tem diferença, consulte a documentação: normalmente char é somente 1 caracter e String é conjunto de caracteres mas no R nao funciona assim.
+
+🔶 **character**
+
+Todo texto em R deve estar entre **aspas simples (‘ ’) ou duplas (“ ”).**
+
+
+🔹 **Logicos**
+
+Usados para representar **valores booleanos, ou seja, verdadeiro ou falso.**
+
+São essenciais em comparações e estruturas condicionais.
+
+```{r}
+# Numérico (padrão - tipo double)
+a <- 10.5
+class(a)      # "numeric"
+typeof(a)     # "double" → indica número decimal em ponto flutuante
+
+# Inteiro
+b <- 10L #ou b <- integer(10)
+class(b)      # "integer"
+typeof(b)     # "integer"
+
+# Texto (caractere)
+c <- "R é incrível!"
+class(c)      # "character"
+typeof(c)     # "character"
+
+# Lógico
+d <- TRUE #ou d <- FALSE
+class(d)      # "logical"
+typeof(d)     # "logical"
+
+# Complexo
+e <- 3 + 2i
+class(e)      # "complex"
+typeof(e)     # "complex"
+
+```
+
+
+----------------------------------------------------------------------------------------
+
+🔹 **Verificando o Tipo de Dados**
+
+O R possui funções que **ajudam a identificar e testar o tipo** de cada objeto.
+
+🔶 **class()**
+
+Mostra a classe do objeto, ou seja, a forma como o **R o interpreta nas operações e funções**.
+
+```{r}
+x <- 10.5
+class(x)     # "numeric"
+```
+
+🔶 **typeof()**
+
+Mostra o **tipo** interno de armazenamento do objeto na memória.
+
+```{r}
+x <- 10.5
+class(x)     # "numeric"
+typeof(x)    # "double"
+```
+
+🔶 **Funções de teste de tipo**
+
+O R também oferece funções para verificar se um objeto pertence a determinado tipo:
+
+```{r}
+is.numeric(10)      # TRUE
+is.integer(10L)     # TRUE
+is.character("R")   # TRUE
+is.logical(FALSE)   # TRUE
+is.complex(3 + 2i)  # TRUE
+```
+Essas funções retornam **TRUE ou FALSE**, sendo muito úteis em verificações condicionais.
+
+🔹 **Conversão Entre Tipos**
+
+Às vezes é necessário **converter um dado** de um tipo para outro — por exemplo, transformar texto em número ou número em texto.
+
+
+🔶 **Funções de conversão**
+
+
+🔹**as.numeric(x)**
+
+Texto → Número 
+```{r}
+as.numeric("10") #10
+```
+
+🔹**as.character(x)**
+
+Número → Texto
+```{r}
+as.character(100) #"100"
+```
+🔹**as.integer(x)**
+
+Número decimal → Inteiro
+```{r}
+as.integer(3.9) #3
+```
+🔹**as.logical(x)**
+
+Número → Lógico
+```{r}
+as.logical(1) #TRUE
+as.logical(0) #FALSE
+```

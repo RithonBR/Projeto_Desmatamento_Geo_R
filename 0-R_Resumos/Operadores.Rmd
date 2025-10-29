@@ -1,0 +1,260 @@
+---
+title: "📝 Operadores em R"
+output: html_notebook
+---
+🔶 **Operadores de Atribuição**
+
+  Os operadores de atribuição são **utilizados para armazenar valores em variáveis**.Em outras palavras, eles servem para atribuir (ou **“guardar”**) um valor, vetor, função ou resultado de uma operação dentro de um nome que você pode **reutilizar mais tarde no código**.
+
+Em R, há várias formas de fazer atribuições, e entender as diferenças entre elas é importante para escrever códigos claros e consistentes.
+
+```{r}
+# Atribuição tradicional (mais usada)
+x <- 5
+
+# Atribuição à direita
+10 -> y
+
+# Atribuição com sinal de igual
+z = 15
+
+print(x)  # 5
+print(y)  # 10
+print(z)  # 15
+
+```
+⚠️ **Atenção:** pode usar **"Alt" + " - "**, para não ter que escrever toda vida o simbolo de atribuição
+
+🔹 **Atribuição dentro de funções**
+
+**Dentro de funções**, o operador **"<-"** cria variáveis **locais (válidas só dentro da função)**.
+Já **"<<-"** modifica uma variável **global**, fora da função:
+
+
+```{r}
+valor <- 10
+
+mudar_valor <- function() {
+  valor <<- 50   # altera a variável global
+}
+
+mudar_valor()
+print(valor)     # 50
+```
+⚠️ **Atenção:** usar **"<<-" deve ser feito com cuidado**, pois pode dificultar o controle de variáveis em códigos grandes.
+
+🔶 **Boas práticas**
+
+✅ Prefira sempre o operador "<-" para atribuição geral.
+
+✅ Use "=" apenas dentro de funções (ex: mean(x = c(1, 2, 3))).
+
+✅ Evite "<<-" a menos que saiba exatamente o que está fazendo.
+
+----------------------------------------------------------------------------------------
+
+🧮 **O que são Operadores Aritméticos em R**
+
+Os operadores aritméticos **são símbolos utilizados para realizar operações matemáticas básicas** entre números ou variáveis numéricas. Eles são fundamentais em qualquer linguagem de programação, inclusive no R, pois **permitem fazer cálculos, análises e transformações de dados de forma automatizada.**
+
+Em R, esses operadores funcionam tanto com valores individuais quanto com vetores, matrizes e data frames, aplicando as operações elemento a elemento.
+
+```{r}
+ #Conjunto de dados
+Conjunto_a <- c(1,2,3,4,5,6,7,8,9,10)
+Conjunto_b <- c(11,12,13,14,15,16,17,18,19,20)
+Conjunto_c <- c(seq(1, 5, by = 1)) #Forma de criar sequencias sem escrever tudo
+
+print(Conjunto_a + Conjunto_b) #SOMA
+print(Conjunto_a - Conjunto_b) #DIFERENÇA
+print(Conjunto_a * Conjunto_b) #MULTIPLICAÇÃO
+print(Conjunto_a / Conjunto_b) #DIVISAO
+print(Conjunto_a %/% Conjunto_b) #DIVISAO INTEIRA EX. 5 ÷ 2 = 2
+print(Conjunto_a %% Conjunto_b) #RESTO DA DIVISAO EX. 10 ÷ 6 = 1 o resto é 4 isso que esse operador pega o 4
+print(Conjunto_a ^ Conjunto_b) #POTENCIA
+
+  #Conjuntos de dados matrizes
+A <- matrix(c(1,2,3,4), nrow=2)
+B <- matrix(c(5,6,7,8), nrow=2)
+
+A * B     # multiplicação elemento a elemento
+A %*% B   # multiplicação matricial
+```
+
+----------------------------------------------------------------------------------------
+
+⚖️ **O que são Operadores de Comparação em R**
+
+Os operadores de **comparação são usados para comparar valores em R.**Eles retornam sempre um **valor lógico (TRUE ou FALSE)**, indicando se a condição é **verdadeira ou falsa**.
+
+Esses operadores são essenciais em **estruturas condicionais (como if, else, while)** e em **filtragens de dados**, permitindo que o R tome decisões automáticas com base nos valores analisados.
+
+```{r}
+ #Variaveis
+a <- 10
+b <- 5
+
+a == b   # FALSE, verificar se é igual
+a != b   # TRUE, verificar se é diferente
+a > b    # TRUE, verificar se é maior
+a < b    # FALSE, verificar se é menor
+a >= 10  # TRUE, verificar se é maior ou igual
+b <= 5   # TRUE, verificar se é menor ou igual
+
+ #Com Vetores ocorrera o mesmo para cada elemento
+x <- c(2, 5, 8)
+y <- c(3, 5, 7)
+
+x == y  # [1] FALSE  TRUE FALSE
+x > y   # [1] FALSE FALSE  TRUE
+x != y  # [1] TRUE FALSE  TRUE
+
+ #Exemplo de aplicação em estrutura condicional para comparar
+idade <- 18
+if (idade >= 18) {
+  print("Maior de idade")
+} else {
+  print("Menor de idade")
+}
+```
+
+----------------------------------------------------------------------------------------
+
+🧩 **O que são Operadores Lógicos em R**
+
+Os **operadores lógicos são utilizados para combinar expressões lógicas ou comparar resultados booleanos (TRUE ou FALSE)**.Eles permitem criar condições compostas, ou seja, verificar se duas ou mais condições são verdadeiras ou falsas ao mesmo tempo.
+
+Esses operadores são amplamente usados em estruturas condicionais (if, while) e em filtragens de dados com múltiplos critérios.
+
+```{r}
+
+ #Variaveis
+a <- 10
+b <- 5
+c <- 3
+
+(a > b) & (b > c)   # TRUE, Operador 'E' (as duas condições são verdadeiras) 
+(a > b) | (b < c)   # TRUE, Operador 'OU'(pelo menos uma é verdadeira)
+!(a > b)            # FALSE, Operador 'not'(nega o resultado: a > b é TRUE, !TRUE = FALSE)
+
+ #Com Vetores ocorrera o mesmo para cada elemento
+x <- c(TRUE, FALSE, TRUE)
+y <- c(FALSE, FALSE, TRUE)
+
+ #& e | → comparam elemento a elemento (usados em vetores)
+x & y   # [1] FALSE FALSE TRUE
+x | y   # [1] TRUE  FALSE TRUE
+
+ #&& e || → avaliam apenas o primeiro elemento (usados em condições simples)
+x && y  # [1] FALSE  (só compara o primeiro elemento)
+x || y  # [1] TRUE   (só compara o primeiro elemento)
+
+ #Exemplo de aplicação em estrutura logica
+idade <- 25
+renda <- 3000
+
+if (idade > 18 & renda > 2000) {
+  print("Aprovado para o crédito")
+} else {
+  print("Reprovado")
+}
+```
+
+----------------------------------------------------------------------------------------
+
+🧩 **Operadores de Pertencimento e Identidade em R**
+
+Esses operadores servem para responder perguntas como:
+
+“Esse valor está nesse conjunto?”
+
+“Esses dois objetos são iguais?”
+
+“Há elementos faltantes (NA)?”
+
+
+🔹 1. **Operador de pertencimento — %in%**
+
+Verifica se cada elemento de um vetor está contido em outro vetor.
+
+📘 Sintaxe: **"x %in% y"**
+→ Retorna TRUE ou FALSE para cada elemento de x.
+
+```{r}
+frutas <- c("maçã", "banana", "laranja", "uva")
+compradas <- c("banana", "uva")
+
+frutas %in% compradas
+```
+
+🔶 2. **Negação de pertencimento — !%in%**
+
+Usando o **operador de negação !**, podemos verificar quem não está no conjunto.
+
+```{r}
+frutas <- c("maçã", "banana", "laranja", "uva")
+compradas <- c("banana", "uva")
+
+frutas[!frutas %in% compradas]
+```
+
+🔹 3. **Funções de identidade e comparação de objetos**
+
+Além de verificar pertencimento, o R possui funções para testar se dois objetos são **idênticos ou iguais** em valor.
+
+📘 Sintaxe: identical() — **igualdade exata**
+
+Retorna TRUE apenas se tudo for igual (valores, tipo de dado, comprimento, etc.)
+
+```{r}
+a <- c(1, 2, 3)
+b <- c(1, 2, 3)
+c <- c("1", "2", "3")
+
+identical(a, b)  # TRUE — são idênticos
+identical(a, c)  # FALSE — tipos diferentes (numérico x texto)
+```
+
+📘 Sintaxe: all.equal() — **igualdade aproximada**
+
+É útil para comparar números decimais, que podem ter pequenas **diferenças de arredondamento.**
+
+```{r}
+x <- 0.3 - 0.2
+y <- 0.1
+
+x == y           # FALSE (problemas de precisão)
+all.equal(x, y)  # TRUE  (considera aproximação numérica)
+```
+
+🔶 4. **Exemplo prático com data frames**
+
+```{r}
+library(dplyr)
+
+dados <- data.frame(
+  nome = c("Ana", "Bruno", "Carla", "Diego"),
+  cidade = c("São Paulo", "Curitiba", "Recife", "São Paulo")
+)
+
+# Filtrar pessoas de São Paulo ou Recife
+dados %>%
+  filter(cidade %in% c("São Paulo", "Recife"))
+```
+
+```{r}
+library(dplyr)
+
+dados <- data.frame(
+  nome = c("Ana", "Bruno", "Carla", "Diego", "Eduardo"),
+  nota = c(8.5, 5.0, 9.0, 6.5, 7.5)
+)
+
+# Lista de alunos aprovados
+aprovados <- c("Ana", "Carla", "Eduardo")
+
+# Filtra apenas os alunos aprovados
+dados_filtrados <- dados[dados$nome %in% aprovados, ]
+print(dados_filtrados)
+
+```

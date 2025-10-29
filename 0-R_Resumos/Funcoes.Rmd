@@ -1,0 +1,142 @@
+---
+title: "⚙️ Funções no R"
+output: html_notebook
+---
+
+As funções são **blocos de código reutilizáveis** que executam uma tarefa específica.Elas permitem automatizar operações, reduzir repetições e tornar o código mais limpo e modular.
+
+Em resumo: 💡 Uma função recebe entradas (argumentos), processa alguma coisa e devolve uma saída (resultado).
+
+----------------------------------------------------------------------------
+
+**1️⃣ Estrutura básica de uma função**
+
+A forma geral é:
+```{r}
+nome_funcao <- function(argumentos) {
+  # Corpo da função
+  # (código que será executado)
+  
+  return(resultado)
+}
+```
+🔸 Exemplo simples:
+```{r}
+soma_dois <- function(x) {
+  resultado <- x + 2
+  return(resultado)
+}
+
+soma_dois(5)
+```
+💡 A função **recebe x, soma 2**, e devolve o valor resultante.
+
+----------------------------------------------------------------------------
+
+**2️⃣ Funções com múltiplos argumento**
+```{r}
+calcular_media <- function(a, b, c) {
+  media <- (a + b + c) / 3
+  return(media)
+}
+
+calcular_media(8, 9, 10)
+```
+💡 Você pode passar quantos argumentos quiser. O return() é opcional — o R retorna automaticamente o último valor calculado.
+
+----------------------------------------------------------------------------
+
+**3️⃣ Funções com valores padrão**
+
+Você pode definir **valores padrão** para os argumentos, caso o usuário não os forneça.
+```{r}
+potencia <- function(base, expoente = 2) {
+  return(base ^ expoente)
+}
+
+potencia(3)      # usa expoente padrão = 2 → 9
+potencia(2, 3)   # usa expoente 3 → 8
+```
+
+----------------------------------------------------------------------------
+
+**4️⃣ Escopo e variáveis internas**
+
+Variáveis criadas dentro da função só existem enquanto a função é executada.
+```{r}
+teste_escopo <- function(x) {
+  y <- x + 10
+  return(y)
+}
+
+teste_escopo(5)  # funciona
+y                # erro: objeto 'y' não existe fora da função
+```
+
+----------------------------------------------------------------------------
+
+**5️⃣ Usando funções dentro de outras funções**
+
+Funções podem chamar outras funções — inclusive elas mesmas (recursão):
+
+```{r}
+dobro <- function(x) {
+  return(x * 2)
+}
+
+soma_dobro <- function(a, b) {
+  return(dobro(a) + dobro(b))
+}
+
+soma_dobro(3, 4)  # 6 + 8 = 14
+```
+💡 Isso facilita a modularização: quebrar tarefas grandes em várias funções pequenas.
+
+----------------------------------------------------------------------------
+
+**6️⃣ Funções anônimas (sem nome)**
+
+Também chamadas de funções lambda, são úteis dentro de funções como apply, lapply, sapply.
+
+```{r}
+print(c(1:5))
+sapply(1:5, function(x) x^2) # eleva na 2
+```
+**7️⃣ Funções úteis já embutidas no R**
+
+O R vem com centenas de funções prontas. Algumas das mais comuns:
+
+| Função                 | O que faz                    |
+| ---------------------- | ---------------------------- |
+| `sum(x)`               | soma dos elementos           |
+| `mean(x)`              | média                        |
+| `max(x)` / `min(x)`    | valor máximo / mínimo        |
+| `length(x)`            | número de elementos          |
+| `round(x, n)`          | arredonda valores            |
+| `sort(x)`              | ordena                       |
+| `paste()` / `paste0()` | concatena textos             |
+| `seq()` / `rep()`      | cria sequências / repetições |
+| `sqrt()`               | raiz quadrada                |
+| `log()`                | logaritmo                    |
+
+💡 Todas podem ser usadas dentro de funções que você cria — e você pode combinar várias.
+
+**8️⃣ Retornando múltiplos resultados**
+
+Uma função pode retornar vários valores usando uma lista:
+
+```{r}
+estatisticas <- function(x) {
+  return(list(
+    media = mean(x),
+    desvio = sd(x),
+    maximo = max(x)
+  ))
+}
+
+resultado <- estatisticas(c(10, 20, 30, 40))
+resultado$media
+resultado$desvio
+resultado$maximo
+```
+💡 Essa técnica é muito usada em análises estatísticas e machine learning.

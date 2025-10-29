@@ -1,0 +1,53 @@
+---
+title: "Pipeline em R"
+output: html_notebook
+---
+
+🔧 **O que é o Pipeline em R**
+
+O pipeline é representado pelo operador:  **%>%**
+
+Ele **serve para encadear comandos**, isto é, passar o resultado de uma operação como entrada da próxima, de forma direta e legível. Esse operador vem do pacote 'magrittr' (e é usado amplamente no 'dplyr', 'tidyr', e em todo o tidyverse).
+
+🔹 **Por que o pipeline é útil?**
+
+Sem o pipeline, você precisaria aninhar funções (colocar uma dentro da outra), o que torna o código confuso.
+Com o pipeline, o código fica limpo, legível e segue o fluxo natural de leitura — de cima para baixo, da esquerda para a direita.
+
+🔶 **Exemplo sem pipeline**
+```{r}
+ resultado <- summarise(
+  group_by(
+    filter(dados, idade > 18),
+    sexo
+  ),
+  media_renda = mean(renda)
+)
+```
+
+🔹 **Mesmo exemplo com pipeline**
+```{r}
+resultado <- dados %>%
+  filter(idade > 18) %>%
+  group_by(sexo) %>%
+  summarise(media_renda = mean(renda))
+```
+⚠️ **Atenção:** pode usar **"CTRL" + " SHIFT " + " M "**, para não ter que escrever toda vida o simbolo de pipeline dos pacotes
+
+🔶 **Pipeline nativo do R (|>)**
+
+A partir da versão R 4.1, foi introduzido um pipeline nativo, representado por: |>
+
+```{r}
+library(dplyr)
+dados <- data.frame(
+  nome = c("Ana", "Bruno", "Carla", "Diego"),
+  idade = c(22, 17, 35, 28),
+  renda = c(2500, 1200, 4000, 1800)
+)
+
+dados |>
+  filter(idade > 18) |>
+  summarise(media = mean(renda))
+```
+⚠️ **Atenção:** para usar o pipeline nativo basta dar **"CTRL" + " SHIFT " + " P "** escrever Pipeline e configurar uma tecla ou escolher se quer usar o nativo.

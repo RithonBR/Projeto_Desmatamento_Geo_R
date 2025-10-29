@@ -1,0 +1,144 @@
+---
+title: "🧩 Criação e Documentação de Funções Personalizadas no R"
+output: html_notebook
+---
+
+As funções são fundamentais para tornar o código modular, organizado e legível. Mas além de criá-las, é importante documentar e seguir boas práticas — principalmente se você planeja criar pacotes ou scripts grandes.
+
+---------------------------
+
+**1️⃣ Estrutura Completa de uma Função**
+```{r}
+nome_funcao <- function(arg1, arg2 = valor_padrao, ...) {
+  # Comentário explicando o que a função faz
+  
+  # Passo 1: (processamento)
+  # Passo 2: (cálculo ou análise)
+  
+  resultado <- algo
+  
+  return(resultado)
+}
+```
+**🔶 Exemplo prático**
+```{r}
+# Calcula média e desvio padrão de um vetor numérico
+estatisticas <- function(x) {
+  media <- mean(x)
+  desvio <- sd(x)
+  return(list(media = media, desvio = desvio))
+}
+
+valores <- c(10, 15, 20, 25)
+estatisticas(valores)
+```
+💡 Sempre que possível, retorne listas nomeadas, para facilitar o acesso aos resultados.
+
+------------------------------
+
+**2️⃣ Comentários e clareza do código**
+
+Comentários (#) tornam o código mais legível.
+
+Eles explicam o propósito, a lógica e os parâmetros da função.
+
+```{r}
+# Função que calcula o índice NDVI (vegetação)
+calcular_ndvi <- function(banda_nir, banda_red) {
+  # Fórmula: NDVI = (NIR - RED) / (NIR + RED)
+  ndvi <- (banda_nir - banda_red) / (banda_nir + banda_red)
+  return(ndvi)
+}
+```
+💬 Comentários curtos e claros ajudam quem for ler seu código depois — inclusive você mesmo.
+
+------------------------------
+
+**3️⃣ Adicionando documentação estilo “help”**
+
+Você pode criar uma documentação embutida, parecida com o ?mean do R.
+
+Usa-se o padrão roxygen2 (mesmo que você não esteja criando pacotes).
+
+```{r}
+#' Calcula a média e o desvio padrão de um vetor numérico
+#'
+#' Esta função recebe um vetor numérico e retorna a média e o desvio padrão.
+#'
+#' @param x Vetor numérico de entrada.
+#' @return Uma lista contendo:
+#' \item{media}{A média dos valores}
+#' \item{desvio}{O desvio padrão dos valores}
+#' @examples
+#' estatisticas(c(1, 2, 3, 4, 5))
+estatisticas <- function(x) {
+  media <- mean(x)
+  desvio <- sd(x)
+  return(list(media = media, desvio = desvio))
+}
+```
+💡 Isso é essencial se você quiser criar pacotes no R, pois a documentação será exibida com ?estatisticas.
+
+------------------------------
+
+**4️⃣ Boas práticas na criação de funções**
+| Boas práticas                  | Explicação                                             |
+| ------------------------------ | ------------------------------------------------------ |
+| ✅ **Nomes descritivos**        | Use verbos claros: `calcular_media()`, `gerar_mapa()`. |
+| ✅ **Argumentos nomeados**      | Evite depender da ordem dos parâmetros.                |
+| ✅ **Retornar objetos simples** | Vetor, data frame ou lista com nomes.                  |
+| ✅ **Verificação de erros**     | Use `stop()` e `warning()` para alertar problemas.     |
+| ✅ **Comentários curtos**       | Explique blocos de código, não cada linha.             |
+| ✅ **Evite variáveis globais**  | Use apenas variáveis locais dentro da função.          |
+
+------------------------------
+
+**5️⃣ Lidando com erros e avisos**
+
+Funções bem feitas verificam se as entradas são válidas antes de continuar.
+
+```{r}
+# Função com verificação de erro
+calcular_media_segura <- function(x) {
+  if (!is.numeric(x)) {
+    stop("Erro: o argumento deve ser numérico.")
+  }
+  return(mean(x))
+}
+
+calcular_media_segura(c(10, 20, 30))   # funciona
+calcular_media_segura("texto")         # gera erro amigável
+```
+💡 stop() interrompe a execução com mensagem de erro; warning() apenas avisa o usuário e continua.
+
+------------------------------
+
+**6️⃣ Funções com argumentos flexíveis (...)**
+
+O operador "..." permite passar argumentos extras para outras funções.
+```{r}
+# Função que faz gráficos personalizados
+meu_plot <- function(x, y, ...) {
+  plot(x, y, col = "blue", pch = 19, ...)
+}
+
+# Adicionando novos argumentos sem alterar a função
+meu_plot(1:5, c(3,1,4,2,5), main = "Meu gráfico", xlab = "Eixo X", ylab = "Eixo Y")
+```
+💡 Isso é ótimo para funções genéricas e reutilizáveis.
+
+------------------------------
+
+**7️⃣ Funções dentro de pacotes**
+
+Se você for evoluir para a criação de pacotes no R, cada função deve:
+
+**Ter documentação roxygen2**
+
+**Ficar em um arquivo .R separado**
+
+**Ter exemplos de uso**
+
+**Ter testes automáticos (testthat)**
+
+
