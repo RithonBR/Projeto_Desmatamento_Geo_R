@@ -1,0 +1,10 @@
+﻿Modelos de Machine Learning;Kappa;Área (ha);Média;Mediana ;Moda;mínimo;máximo;Desvio padrão
+Extra Trees;0,905;16.169,22;7,35;7;7;6;9;1,01
+Gaussian Mixture Model;0,928;14.315,18;7,8;8;8;5;10;1,21
+Naive Bayes;0,746;20.139,86;3,75;4;4;1;8;1,55
+LightGBM;0,86;17.524,99;6,25;6;7;4;9;1,51
+Logistic Regression;0,903;14.941,50;6,8;7;8;2;10;1,91
+Multi-Layer Perceptron;0,917;16.105,97;6,7;7;8;3;9;1,55
+Random Forest;0,883;16.661,95;6,6;7;7;4;10;1,39
+K-nearest neighbors;0,833;18.904,70;6,05;6,5;7;4;8;1,4
+XGBoost;0,852;17.333,90;5,95;6;6;4;8;1,02

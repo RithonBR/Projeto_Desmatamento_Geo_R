@@ -1,0 +1,16 @@
+---
+title: "Importar dados e Operações"
+output: html_notebook
+---
+
+**1️ Importar tabelas csv **
+
+```{r}
+
+```
+
+**2️⃣ Importar tabelas xlxs **
+
+```{r}
+
+```
